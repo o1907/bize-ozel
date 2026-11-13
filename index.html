@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sadece Bize Özel ❤️</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffe6eb 0%, #fff5f7 100%);
+            color: #4a4a4a;
+            margin: 0;
+            padding: 30px 15px;
+            text-align: center;
+        }
+        .konteyner {
+            max-width: 650px;
+            margin: auto;
+        }
+        .bolum {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.1);
+            margin-bottom: 25px;
+        }
+        h1, h2 { color: #d81b60; margin-top: 0; }
+        
+        /* Şifre Ekranı Tasarımı */
+        #sifreEkrani {
+            max-width: 400px;
+            margin: 80px auto;
+        }
+        input[type="password"] {
+            width: 80%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #f8bbd0;
+            border-radius: 25px;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+        input[type="password"]:focus {
+            border-color: #d81b60;
+        }
+        #hataMesaji {
+            color: #e53935;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Ana İçerik Başlangıçta Gizli */
+        #anaIcerik {
+            display: none;
+        }
+
+        /* Sayaç Tasarımı */
+        .sayac-kutu {
+            display: flex;
+            justify-content: space-around;
+            background: #fff0f5;
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+        .sayac-birim span {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: #d81b60;
+        }
+        .sayac-birim small { color: #777; font-size: 12px; }
+
+        /* Anı Kartları */
+        .ani-kart {
+            background: #fafafa;
+            border-left: 4px solid #d81b60;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+            border-radius: 8px;
+        }
+        .ani-tarih { font-size: 12px; color: #d81b60; font-weight: bold; }
+        .ani-baslik { font-size: 18px; font-weight: bold; margin: 5px 0; }
+
+        /* Butonlar ve Oyun Alanı */
+        button {
+            background-color: #d81b60;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 5px;
+            transition: 0.2s;
+        }
+        button:hover { background-color: #ad1457; transform: scale(1.03); }
+        .secenek-btn {
+            display: block;
+            width: 100%;
+            background-color: #fff0f5;
+            color: #d81b60;
+            border: 1px solid #f8bbd0;
+            margin: 8px 0;
+            text-align: left;
+        }
+        .secenek-btn:hover { background-color: #f8bbd0; color: #880e4f; }
+        .not-alani {
+            background-color: #fff0f5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-style: italic;
+            font-size: 17px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- GİRİŞ ŞİFRE EKRANI -->
+<div class="bolum" id="sifreEkrani">
+    <h2>🔒 Sadece Bize Özel</h2>
+    <p>Devam etmek için ikimizin özel şifresini gir:</p>
+    <input type="password" id="sifreInput" placeholder="Şifreyi buraya yaz..." onkeypress="enterKontrol(event)">
+    <br>
+    <button onclick="sifreyiKontrolEt()">İçeri Gir ❤️</button>
+    <p id="hataMesaji">Yanlış şifre! İpucu: Başlangıcımız 😉</p>
+</div>
+
+<!-- ASIL SİTE İÇERİĞİ (Şifre doğruysa açılır) -->
+<div class="konteyner" id="anaIcerik">
+
+    <!-- 1. BÖLÜM: KARŞILAMA VE CANLI SAYAÇ -->
+    <div class="bolum">
+        <h1>İyi Ki Varsın HANZOŞUM ❤️</h1>
+        <p>Seninle geçen her saniye hayatımın en güzel hediyesi.</p>
+        
+        <div class="sayac-kutu">
+            <div class="sayac-birim"><span id="gun">0</span><small>Gün</small></div>
+            <div class="sayac-birim"><span id="saat">0</span><small>Saat</small></div>
+            <div class="sayac-birim"><span id="dakika">0</span><small>Dakika</small></div>
+            <div class="sayac-birim"><span id="saniye">0</span><small>Saniye</small></div>
+        </div>
+    </div>
+
+    <!-- 2. BÖLÜM: RASTGELE NOT BUTONU -->
+    <div class="bolum">
+        <h2>Günün Notu 💌</h2>
+        <div class="not-alani" id="notKutusu">Bugün sana ne söylemek istediğimi görmek için tıkla...</div>
+        <button onclick="yeniNotGoster()">Yeni Bir Not Getir ✨</button>
+    </div>
+
+    <!-- 3. BÖLÜM: ANILARIMIZ -->
+    <div class="bolum">
+        <h2>Unutulmaz Anılarımız ✨</h2>
+        <div class="ani-kart">
+            <div class="ani-tarih">7 Nisan 2025</div>
+            <div class="ani-baslik">Bizim Başlangıcımız</div>
+            <p>O günkü heyecanımı hala dün gibi hatırlıyorum. İyi ki hayatıma girdin iyi ki benim sevgilimsin birtanem.</p>
+        </div>
+        <div class="ani-kart">
+            <div class="ani-tarih">28 Temmuz 2026</div>
+            <div class="ani-baslik">En Güzel Makarna Günümüz</div>
+            <p>Birlikte kahkahalarla güldüğümüz ve hiç bitmesin dediğimiz o harika gün.</p>
+        </div>
+    </div>
+
+    <!-- 4. BÖLÜM: MİNİ AŞK TESTİ OYUNU -->
+    <div class="bolum">
+        <h2>Bizi Ne Kadar Tanıyorsun? 🎮</h2>
+        <div id="oyunAlani">
+            <p id="soruMetni" style="font-weight: bold; font-size: 18px;"></p>
+            <div id="secenekler"></div>
+        </div>
+        <p id="sonucMetni" style="font-weight: bold; color: #d81b60;"></p>
+    </div>
+
+</div>
+
+<script>
+    // ŞİFRE AYARI (Buradaki "14022025" kısmını kendi şifrenizle değiştirin)
+    const DOGRU_SIFRE = "07042025";
+
+    function sifreyiKontrolEt() {
+        const girilenSifre = document.getElementById("sifreInput").value;
+        if (girilenSifre === DOGRU_SIFRE) {
+            document.getElementById("sifreEkrani").style.display = "none";
+            document.getElementById("anaIcerik").style.display = "block";
+        } else {
+            document.getElementById("hataMesaji").style.display = "block";
+        }
+    }
+
+    // Enter tuşuna basınca da giriş yapabilmesi için
+    function enterKontrol(event) {
+        if (event.key === "Enter") {
+            sifreyiKontrolEt();
+        }
+    }
+
+    // 1. SAYAÇ AYARI
+    const baslangicTarihi = new Date("2025-04-07").getTime();
+
+    setInterval(function() {
+        const simdi = new Date().getTime();
+        const fark = simdi - baslangicTarihi;
+
+        document.getElementById("gun").innerText = Math.floor(fark / (1000 * 60 * 60 * 24));
+        document.getElementById("saat").innerText = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("dakika").innerText = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById("saniye").innerText = Math.floor((fark % (1000 * 60)) / 1000);
+    }, 1000);
+
+    // 2. GÜZEL NOTLAR LİSTESİ
+    const notlar = [
+        "Gülüşün en kötü günümü bile anında güzelleştiriyor.",
+        "Seninle en sıradan anlar bile en güzel anılara dönüşüyor.",
+        "Bana her zaman iyi geldiğin için teşekkür ederim.",
+        "Dünyadaki en sevdiğim yer, senin yanın."
+    ];
+    function yeniNotGoster() {
+        const rastgele = Math.floor(Math.random() * notlar.length);
+        document.getElementById("notKutusu").innerText = notlar[rastgele];
+    }
+
+    // 3. MİNİ TEST OYUNU SORULARI
+    const sorular = [
+        {
+            soru: "Ozinin En Sevdiği Marvel Karakteri?",
+            secenekler: ["İron Man", "Kaptan America", "Thor", "Hulk"],
+            dogru: 2
+        },
+        {
+            soru: "Ozinin En Sevdiği Tatlı?",
+            secenekler: ["Ekmek Kadayıfı", "Sütlaç", "Hanzade", "Baklava"],
+            dogru: 2
+        }
+    ];
+
+    let mevcutSoru = 0;
+    let puan = 0;
+
+    function soruyuYukle() {
+        if (mevcutSoru < sorular.length) {
+            const s = sorular[mevcutSoru];
+            document.getElementById("soruMetni").innerText = s.soru;
+            const seceneklerDiv = document.getElementById("secenekler");
+            seceneklerDiv.innerHTML = "";
+            
+            s.secenekler.forEach((secenek, index) => {
+                const btn = document.createElement("button");
+                btn.innerText = secenek;
+                btn.className = "secenek-btn";
+                btn.onclick = () => cevabiKontrolEt(index);
+                seceneklerDiv.appendChild(btn);
+            });
+        } else {
+            document.getElementById("oyunAlani").style.display = "none";
+            document.getElementById("sonucMetni").innerText = `Tebrikler! ${sorular.length} sorudan ${puan} tanesini doğru bildin! ❤️`;
+        }
+    }
+
+    function cevabiKontrolEt(secilenIndex) {
+        if (secilenIndex === sorular[mevcutSoru].dogru) {
+            puan++;
+        }
+        mevcutSoru++;
+        soruyuYukle();
+    }
+
+    soruyuYukle();
+</script>
+
+</body>
+</html>
